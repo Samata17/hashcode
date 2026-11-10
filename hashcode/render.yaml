@@ -1,0 +1,22 @@
+# Render "Blueprint": lets Render set up DevBlog automatically from this file.
+# Render dashboard -> New -> Blueprint -> pick your GitHub repo.
+# You will be asked for MONGO_URI (your MongoDB Atlas connection string).
+services:
+  - type: web
+    name: devblog
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: MONGO_URI
+        sync: false # you paste this in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true # Render creates a long random secret for you
+      - key: JWT_EXPIRES_IN
+        value: 7d
