@@ -1,12 +1,17 @@
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+
+  // Required for GitHub Pages
+  base: '/hashcode/',
+
   server: {
     port: 5173,
-    // During development, requests to /api are forwarded to the Express backend.
-    // This means the frontend can simply call "/api/..." with no CORS setup.
+
+    // Development proxy for Express backend
     proxy: {
       '/api': 'http://localhost:5000',
     },
